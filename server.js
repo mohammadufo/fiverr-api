@@ -8,12 +8,15 @@ import messageRoute from "./routes/message.route.js";
 import conversationRoute from "./routes/conversation.route.js";
 import reviewRoute from "./routes/review.route.js";
 import authRoute from "./routes/auth.route.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
+dotenv.config();
+
+app.use(express.json());
+app.use(cookieParser());
 
 mongoose.set("strictQuery", true);
-
-dotenv.config();
 
 const connect = async () => {
   try {
