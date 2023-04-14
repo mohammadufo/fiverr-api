@@ -15,29 +15,29 @@ const userSchema = new Schema(
       unique: true,
     },
     password: {
-      require: true,
       type: String,
+      require: true,
     },
     img: {
-      require: false,
       type: String,
+      require: false,
     },
     country: {
-      require: false,
       type: String,
+      require: false,
     },
     phoneNumber: {
-      require: false,
       type: String,
+      require: false,
     },
     desc: {
-      require: false,
       type: String,
+      require: false,
     },
     isSeller: {
+      type: Boolean,
       default: false,
       require: false,
-      type: Boolean,
     },
   },
   { timestamps: true }
