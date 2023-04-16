@@ -2,7 +2,7 @@ import User from "../models/User.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const register = async (req, res) => {
+export const register = async (req, res, next) => {
   try {
     const hashedPass = bcrypt.hashSync(req.body.password, 5);
     const newUser = new User({ ...req.body, password: hashedPass });
@@ -13,14 +13,19 @@ export const register = async (req, res) => {
       data: newUser,
     });
   } catch (err) {
-    res.status(500).send("Something went wrong!");
+    next(err);
   }
 };
 
-export const login = async (req, res) => {
+export const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-    if (!user) return res.status(404).sent("user not found!");
+
+    const err = new Error();
+    err.status = 404;
+    err.message = "user not found!";
+
+    if (!user) return next(err);
 
     const correctUser = bcrypt.compareSync(req.body.password, user.password);
     if (!correctUser)
@@ -41,7 +46,7 @@ export const login = async (req, res) => {
       data: info,
     });
   } catch (err) {
-    res.status(500).send(err);
+    next(err);
   }
 };
 

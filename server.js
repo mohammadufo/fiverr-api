@@ -35,6 +35,13 @@ app.use("/api/reviews", reviewRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/auth", authRoute);
 
+app.use((err, req, res, next) => {
+  const errorStatus = err.err || 500;
+  const errorMessage = err.err || "Something went wrong!";
+
+  return res.status(errorStatus).send(errorMessage);
+});
+
 app.listen(8080, () => {
   connect();
   console.log("Server is running!");
