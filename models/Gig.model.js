@@ -46,7 +46,7 @@ const gigSchema = new Schema({
     default: 0,
     require: true,
   },
-  categories: {
+  cats: {
     type: String,
     require: true,
   },

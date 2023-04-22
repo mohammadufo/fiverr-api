@@ -49,7 +49,21 @@ export const getGig = async (req, res) => {
 };
 
 export const getAllGigs = async (req, res) => {
-  const gigs = await Gig.find();
+  const { query } = req;
+
+  const filters = {
+    ...(query.userId && { userId: query.userId }),
+    ...(query.cats && { cats: query.cats }),
+    ...((query.min || query.max) && {
+      price: {
+        ...(query.min && { $gt: query.min }),
+        ...(query.max && { $lt: query.max }),
+      },
+    }),
+    ...(query.search && { title: { $regex: query.search, $options: "i" } }),
+  };
+
+  const gigs = await Gig.find(filters);
 
   res.status(200).send({
     status: true,
