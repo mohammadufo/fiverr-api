@@ -56,8 +56,8 @@ export const getAllGigs = async (req, res) => {
     ...(query.cats && { cats: query.cats }),
     ...((query.min || query.max) && {
       price: {
-        ...(query.min && { $gt: query.min }),
-        ...(query.max && { $lt: query.max }),
+        ...(query.min && { $gte: query.min }),
+        ...(query.max && { $lte: query.max }),
       },
     }),
     ...(query.search && { title: { $regex: query.search, $options: "i" } }),

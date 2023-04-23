@@ -42,7 +42,7 @@ const gigSchema = new Schema({
     require: true,
   },
   starNumber: {
-    type: String,
+    type: Number,
     default: 0,
     require: true,
   },
@@ -50,11 +50,11 @@ const gigSchema = new Schema({
     type: String,
     require: true,
   },
-  Price: {
+  price: {
     type: Number,
     require: true,
   },
-  coverImg: {
+  cover: {
     type: String,
     require: true,
   },
